@@ -41,7 +41,7 @@ public class SplayTree<E> implements Comparable{
         while (root != null){
             p = root;
             if (root.getKey().compareTo(p.getKey()) < 0){
-                root = root.right;
+                root = root;
             }else{
                 z = z.left;
             }
