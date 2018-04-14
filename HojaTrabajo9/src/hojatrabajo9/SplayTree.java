@@ -4,9 +4,9 @@ package hojatrabajo9;
  *
  * @author javie
  */
-public class SplayTree<E> implements Comparable{
-    
-    private SplayNode root;
+public class SplayTree<E> implements arbol //ya que se usará factory, se necesita que implemente la interfaz arbol 
+{
+    public Node root;
     private int count = 0;
     
     /** Constructor **/
@@ -23,21 +23,18 @@ public class SplayTree<E> implements Comparable{
     public void clear(){
         root = null;
     }
-    
+    /***************************************************************************
+    *  Splay tree insertion.
+    ***************************************************************************/
     /** function to insert element
      * @param ele */
-    public void insert(SplayNode ele){
-        
-        
-        
-        SplayNode z = root;
+    public void insert(Node ele){
+        Node z = root;
         z = insertRec(root, ele);
-        
-        
      }
     
-    private SplayNode insertRec(SplayNode root, SplayNode nodo){
-        SplayNode p = null;
+    private Node insertRec(Node root, Node nodo){
+        Node p = null;
         while (root != null){
             p = root;
             if (root.getKey().compareTo(p.getKey()) < 0){
@@ -46,7 +43,7 @@ public class SplayTree<E> implements Comparable{
                 z = z.left;
             }
         }
-        z = new SplayNode();
+        z = new Node();
         z.element = ele;
         z.parent = p;
         if (p == null){     
@@ -59,8 +56,9 @@ public class SplayTree<E> implements Comparable{
         Splay(z);
         count++;
     }
+    
      /** rotate **/
-     public void makeLeftChildParent(SplayNode c, SplayNode p)
+     public void makeLeftChildParent(Node c, Node p)
      {
          if ((c == null) || (p == null) || (p.left != c) || (c.parent != p))
              throw new RuntimeException("WRONG");
@@ -82,7 +80,7 @@ public class SplayTree<E> implements Comparable{
      }
  
      /** rotate **/
-     public void makeRightChildParent(SplayNode c, SplayNode p)
+     public void makeRightChildParent(Node c, Node p)
      {
          if ((c == null) || (p == null) || (p.right != c) || (c.parent != p))
              throw new RuntimeException("WRONG");
@@ -102,12 +100,12 @@ public class SplayTree<E> implements Comparable{
      }
  
      /** function splay **/
-     private void Splay(SplayNode x)
+     private void Splay(Node x)
      {
          while (x.parent != null)
          {
-             SplayNode Parent = x.parent;
-             SplayNode GrandParent = Parent.parent;
+             Node Parent = x.parent;
+             Node GrandParent = Parent.parent;
              if (GrandParent == null)
              {
                  if (x == Parent.left)
@@ -148,51 +146,6 @@ public class SplayTree<E> implements Comparable{
          root = x;
      }
  
-     /** function to remove element **/
-     public void remove(int ele)
-     {
-         SplayNode node = findNode(ele);
-        remove(node);
-     }
- 
-     /** function to remove node **/
-     private void remove(SplayNode node)
-     {
-         if (node == null)
-             return;
- 
-         Splay(node);
-         if( (node.left != null) && (node.right !=null))
-         { 
-             SplayNode min = node.left;
-             while(min.right!=null)
-                 min = min.right;
- 
-             min.right = node.right;
-             node.right.parent = min;
-             node.left.parent = null;
-             root = node.left;
-         }
-         else if (node.right != null)
-         {
-             node.right.parent = null;
-             root = node.right;
-         } 
-         else if( node.left !=null)
-         {
-             node.left.parent = null;
-             root = node.left;
-         }
-         else
-         {
-             root = null;
-         }
-         node.parent = null;
-         node.left = null;
-         node.right = null;
-         node = null;
-         count--;
-     }
  
      /** Functions to count number of nodes **/
      public int countNodes()
@@ -205,9 +158,9 @@ public class SplayTree<E> implements Comparable{
      {
          return findNode(val) != null;
      }
-     private SplayNode findNode(int ele)
+     private Node findNode(int ele)
      {
-         SplayNode z = root;
+         Node z = root;
          while (z != null)
          {
              if (ele < z.element)
@@ -225,7 +178,7 @@ public class SplayTree<E> implements Comparable{
      {
          inorder(root);
      }
-     private void inorder(SplayNode r)
+     private void inorder(Node r)
      {
          if (r != null)
          {
@@ -240,7 +193,7 @@ public class SplayTree<E> implements Comparable{
      {
          preorder(root);
      }
-     private void preorder(SplayNode r)
+     private void preorder(Node r)
      {
          if (r != null)
          {
@@ -255,7 +208,7 @@ public class SplayTree<E> implements Comparable{
      {
          postorder(root);
      }
-     private void postorder(SplayNode r)
+     private void postorder(Node r)
      {
          if (r != null)
          {
@@ -263,11 +216,176 @@ public class SplayTree<E> implements Comparable{
              postorder(r.right);
              System.out.print(r.element +" ");
          }
-     }     
+     }
 
-    @Override
-    public int compareTo(Object o) {
-        if()
+     
+
+     //splaytree funcional:
+     
+     
+    /**
+    public boolean contains(String key) {
+        return get(key) != null;
     }
- }
 
+    // return value associated with the given key
+    // if no such value, return null
+    public String get(String key) {
+        root = splay(root, key);
+        int cmp = key.compareTo(root.getKey());
+        if (cmp == 0) return root.getValue().getValue().toString();
+        else          return null;
+    }    
+
+   //       ************ Splay tree insertion. ***************
+    public void put(String key, String value) {
+        // splay key to root
+        if (root == null) {
+            root = new Node(key, value);
+            return;
+        }
+        
+        root = splay(root, key);
+
+        int cmp = key.compareTo(root.getKey());
+        
+        // Insert new node at root
+        if (cmp < 0) {
+            Node n = new Node(key, value);
+            n.setLeft(root.getLeft());
+            n.setRight(root);
+            root.setLeft(null);
+            root = n;
+        }
+
+        // Insert new node at root
+        else if (cmp > 0) {
+            Node n = new Node(key, value);
+            n.setRight(root.getRight());
+            n.setLeft(root);
+            root.setRight(null);
+            root = n;
+        }
+
+        /** It was a duplicate key. Simply replace the value
+        else {
+            root.value = value;
+        }
+
+    }
+    
+   // *************** Splay tree deletion. ***************
+    
+    public void remove(String key) {
+        if (root == null) return; // empty tree
+        
+        root = splay(root, key);
+
+        int cmp = key.compareTo(root.getKey());
+        
+        if (cmp == 0) {
+            if (root.getLeft() == null) {
+                root = root.getRight();
+            } 
+            else {
+                Node x = root.getRight();
+                root = root.getLeft();
+                splay(root, key);
+                root.setRight(x);
+            }
+        }
+
+        // else: it wasn't in the tree to remove
+    }
+    
+    
+   //  *************** Splay tree function. ***************
+    // splay key in the tree rooted at Node h. If a node with that key exists,
+    //   it is splayed to the root of the tree. If it does not, the last node
+    //   along the search path for the key is splayed to the root.
+    private Node splay(Node h, String key) {
+        if (h == null) return null;
+
+        int cmp1 = key.compareTo(h.getKey());
+
+        if (cmp1 < 0) {
+            // key not in tree, so we're done
+            if (h.getLeft() == null) {
+                return h;
+            }
+            int cmp2 = key.compareTo(h.getLeft().getKey());
+            if (cmp2 < 0) {
+                h.getLeft().setLeft(splay(h.getLeft().getLeft(), key));
+                h = rotateRight(h);
+            }
+            else if (cmp2 > 0) {
+                h.getLeft().setRight(splay(h.getLeft().getRight(), key));
+                if (h.getLeft().getRight() != null)
+                    h.setLeft(rotateLeft(h.getLeft()));
+            }
+            
+            if (h.getLeft() == null) return h;
+            else                return rotateRight(h);
+        }
+
+        else if (cmp1 > 0) { 
+            // key not in tree, so we're done
+            if (h.getRight() == null) {
+                return h;
+            }
+
+            int cmp2 = key.compareTo(h.getRight().getKey());
+            if (cmp2 < 0) {
+                h.getRight().setLeft(splay(h.getRight().getLeft(), key));
+                if (h.getRight().getLeft() != null)
+                    h.setRight(rotateRight(h.getRight()));
+            }
+            else if (cmp2 > 0) {
+                h.getRight().setRight(splay(h.getRight().getRight(), key));
+                h = rotateLeft(h);
+            }
+            
+            if (h.getRight() == null) return h;
+            else                 return rotateLeft(h);
+        }
+
+        else return h;
+    }
+
+
+   // *************** Helper functions. ***************
+
+    // height of tree (1-node tree has height 0)
+    public int height() { return height(root); }
+    private int height(Node x) {
+        if (x == null) return -1;
+        return 1 + Math.max(height(x.getLeft()), height(x.getRight()));
+    }
+
+    
+    public int size() {
+        return size(root);
+    }
+    
+    private int size(Node x) {
+        if (x == null) return 0;
+        else return 1 + size(x.getLeft()) + size(x.getRight());
+    }
+    
+    // right rotate
+    private Node rotateRight(Node h) {
+        Node x = h.getLeft();
+        h.setLeft(x.getRight());
+        x.setRight(h);
+        return x;
+    }
+
+    // left rotate
+    private Node rotateLeft(Node h) {
+        Node x = h.getRight();
+        h.setRight(x.getLeft());
+        x.setLeft(h);
+        return x;
+    }
+    **/
+}
