@@ -3,233 +3,30 @@ package hojatrabajo9;
 /**
  *
  * @author javie
+ * @param <E>
  */
 public class SplayTree<E> implements arbol //ya que se usará factory, se necesita que implemente la interfaz arbol 
 {
-    public Node root;
-    private int count = 0;
+
     
+    public Node root;
+    private final int count = 0;
     /** Constructor **/
     public SplayTree(){
-        root = null;
+        
     }
-    
-    /** Function to check if tree is empty **/
-    public boolean isEmpty(){
-        return root == null;
-    }
-    
-    /** clear tree **/
-    public void clear(){
-        root = null;
-    }
-    /***************************************************************************
-    *  Splay tree insertion.
-    ***************************************************************************/
-    /** function to insert element
-     * @param ele */
-    public void insert(Node ele){
-        Node z = root;
-        z = insertRec(root, ele);
-     }
-    
-    private Node insertRec(Node root, Node nodo){
-        Node p = null;
-        while (root != null){
-            p = root;
-            if (root.getKey().compareTo(p.getKey()) < 0){
-                root = root;
-            }else{
-                z = z.left;
-            }
-        }
-        z = new Node();
-        z.element = ele;
-        z.parent = p;
-        if (p == null){     
-            root = z;
-        }else if (ele < p.element){
-            p.right = z;
-        }else{
-            p.left = z;
-        }
-        Splay(z);
-        count++;
-    }
-    
-     /** rotate **/
-     public void makeLeftChildParent(Node c, Node p)
-     {
-         if ((c == null) || (p == null) || (p.left != c) || (c.parent != p))
-             throw new RuntimeException("WRONG");
- 
-         if (p.parent != null)
-         {
-             if (p == p.parent.left)
-                 p.parent.left = c;
-             else 
-                 p.parent.right = c;
-         }
-         if (c.right != null)
-             c.right.parent = p;
- 
-         c.parent = p.parent;
-         p.parent = c;
-         p.left = c.right;
-         c.right = p;
-     }
- 
-     /** rotate **/
-     public void makeRightChildParent(Node c, Node p)
-     {
-         if ((c == null) || (p == null) || (p.right != c) || (c.parent != p))
-             throw new RuntimeException("WRONG");
-         if (p.parent != null)
-         {
-             if (p == p.parent.left)
-                 p.parent.left = c;
-             else
-                 p.parent.right = c;
-         }
-         if (c.left != null)
-             c.left.parent = p;
-         c.parent = p.parent;
-         p.parent = c;
-         p.right = c.left;
-         c.left = p;
-     }
- 
-     /** function splay **/
-     private void Splay(Node x)
-     {
-         while (x.parent != null)
-         {
-             Node Parent = x.parent;
-             Node GrandParent = Parent.parent;
-             if (GrandParent == null)
-             {
-                 if (x == Parent.left)
-                     makeLeftChildParent(x, Parent);
-                 else
-                     makeRightChildParent(x, Parent);                 
-             } 
-             else
-             {
-                 if (x == Parent.left)
-                 {
-                     if (Parent == GrandParent.left)
-                     {
-                         makeLeftChildParent(Parent, GrandParent);
-                         makeLeftChildParent(x, Parent);
-                     }
-                     else 
-                     {
-                         makeLeftChildParent(x, x.parent);
-                         makeRightChildParent(x, x.parent);
-                     }
-                 }
-                 else 
-                 {
-                     if (Parent == GrandParent.left)
-                     {
-                         makeRightChildParent(x, x.parent);
-                         makeLeftChildParent(x, x.parent);
-                     } 
-                     else 
-                     {
-                         makeRightChildParent(Parent, GrandParent);
-                         makeRightChildParent(x, Parent);
-                     }
-                 }
-             }
-         }
-         root = x;
-     }
- 
- 
-     /** Functions to count number of nodes **/
-     public int countNodes()
-     {
-         return count;
-     }
- 
-     /** Functions to search for an element **/
-     public boolean search(int val)
-     {
-         return findNode(val) != null;
-     }
-     private Node findNode(int ele)
-     {
-         Node z = root;
-         while (z != null)
-         {
-             if (ele < z.element)
-                 z = z.right;
-             else if (ele > z.element)
-                 z = z.left;
-             else
-                 return z;
-         }
-         return null;
-     }
- 
-     /** Function for inorder traversal **/ 
-     public void inorder()
-     {
-         inorder(root);
-     }
-     private void inorder(Node r)
-     {
-         if (r != null)
-         {
-             inorder(r.left);
-             System.out.print(r.element +" ");
-             inorder(r.right);
-         }
-     }
- 
-     /** Function for preorder traversal **/
-     public void preorder()
-     {
-         preorder(root);
-     }
-     private void preorder(Node r)
-     {
-         if (r != null)
-         {
-             System.out.print(r.element +" ");
-             preorder(r.left);             
-             preorder(r.right);
-         }
-     }
- 
-     /** Function for postorder traversal **/
-     public void postorder()
-     {
-         postorder(root);
-     }
-     private void postorder(Node r)
-     {
-         if (r != null)
-         {
-             postorder(r.left);             
-             postorder(r.right);
-             System.out.print(r.element +" ");
-         }
-     }
 
-     
-
-     //splaytree funcional:
-     
-     
-    /**
+    //splaytree funcional:
+    
+    
+    @Override
     public boolean contains(String key) {
         return get(key) != null;
     }
 
     // return value associated with the given key
     // if no such value, return null
+    @Override
     public String get(String key) {
         root = splay(root, key);
         int cmp = key.compareTo(root.getKey());
@@ -238,6 +35,7 @@ public class SplayTree<E> implements arbol //ya que se usará factory, se necesi
     }    
 
    //       ************ Splay tree insertion. ***************
+    @Override
     public void put(String key, String value) {
         // splay key to root
         if (root == null) {
@@ -266,12 +64,6 @@ public class SplayTree<E> implements arbol //ya que se usará factory, se necesi
             root.setRight(null);
             root = n;
         }
-
-        /** It was a duplicate key. Simply replace the value
-        else {
-            root.value = value;
-        }
-
     }
     
    // *************** Splay tree deletion. ***************
@@ -387,5 +179,5 @@ public class SplayTree<E> implements arbol //ya que se usará factory, se necesi
         x.setLeft(h);
         return x;
     }
-    **/
+    
 }

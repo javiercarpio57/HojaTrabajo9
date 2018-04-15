@@ -23,13 +23,12 @@ class Factory<E> {
         
         if(entry.equals("Red-Black Tree"))
         {
-            implementacion =  new RedBlackTree<Node<Association<String, String>>>();
-        }
-       /** else if(entry.equals("Splay Tree"))
+            implementacion =  new RedBlackTree<>();
+        }else if(entry.equals("Splay Tree"))
         {
-            implementacion = new SplayTree<Node<Association<String, String>>>();
+            implementacion = new SplayTree<>();
         }
-        **/
+        
         return implementacion;      
    }
 }

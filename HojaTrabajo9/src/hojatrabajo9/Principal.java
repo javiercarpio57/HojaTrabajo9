@@ -49,60 +49,62 @@ public class Principal {
                         ciclo = 1;
                         break;
                 }
-                while ((line=br.readLine())!=null) {
-                    String palabraIngles;
-                    String palabraEspanol;
-                    sb.append(line);
-                    sb.append(System.lineSeparator()); 
-                    line = line + " "; //Concatenado para que el ultimo valor sea leido sin problemas
-                                       //por substring
-                    for(int i=1;i<line.length();i++){
+                if(ciclo == 0){
+                    while ((line=br.readLine())!=null) {
+                        String palabraIngles;
+                        String palabraEspanol;
+                        sb.append(line);
+                        sb.append(System.lineSeparator()); 
+                        line = line + " "; //Concatenado para que el ultimo valor sea leido sin problemas
+                                           //por substring
+                        for(int i=1;i<line.length();i++){
 
-                        String iter = line.substring((i-1), i); 
-                        if(iter.equals(","))
-                        {
-                            palabraEspanol = line.substring(i, line.length()-1).toUpperCase(); //se obtiene la subcadena luego de ","
-                            palabraIngles = line.substring(0, i-1).toUpperCase(); //se obtiene la subcadena antes de "," 
-                            imp.put(palabraIngles, palabraEspanol);
+                            String iter = line.substring((i-1), i); 
+                            if(iter.equals(","))
+                            {
+                                palabraEspanol = line.substring(i, line.length()-1).toUpperCase(); //se obtiene la subcadena luego de ","
+                                palabraIngles = line.substring(0, i-1).toUpperCase(); //se obtiene la subcadena antes de "," 
+                                imp.put(palabraIngles, palabraEspanol);
+                            }
                         }
                     }
-                }
-                //Traduccion del documento.
+                    //Traduccion del documento.
 
-                File archivo = new File ("texto.txt");
+                    File archivo = new File ("texto.txt");
 
-                FileReader fr = new FileReader (archivo);
-                BufferedReader br1 = new BufferedReader(fr);
-                String linea = "";
-                Scanner scanner = new Scanner(fr);
-                String palabra = "";
+                    FileReader fr = new FileReader (archivo);
+                    BufferedReader br1 = new BufferedReader(fr);
+                    String linea = "";
+                    Scanner scanner = new Scanner(fr);
+                    String palabra = "";
 
-                while (scanner.hasNextLine()) {
-                    linea += scanner.nextLine();
-                    palabra = linea.replaceAll("\n", " ");
-                }
-                fr.close();
-                br1.close();
-
-                String palabras[] = palabra.split(" ");
-
-
-                String resultado = "";
-
-                String word;
-
-                for(String p: palabras){
-                    word = p.toUpperCase();
-                    if (imp.contains(word))
-                        resultado += imp.get(word) + " ";
-                    else
-                        resultado+= word + " ";
+                    while (scanner.hasNextLine()) {
+                        linea += scanner.nextLine();
+                        palabra = linea.replaceAll("\n", " ");
                     }
-                System.out.println("----------------------------------");
-                System.out.println("Traduccion del documento.");
-                System.out.println(resultado);
-                System.out.println("----------------------------------");
+                    fr.close();
+                    br1.close();
 
+                    String palabras[] = palabra.split(" ");
+
+
+                    String resultado = "";
+
+                    String word;
+
+                    for(String p: palabras){
+                        word = p.toUpperCase();
+                        if (imp.contains(word))
+                            resultado += imp.get(word) + " ";
+                        else
+                            resultado+= word + " ";
+                        }
+                    System.out.println("----------------------------------");
+                    System.out.println("Traduccion del documento.");
+                    System.out.println(resultado);
+                    System.out.println("----------------------------------");
+                    ciclo = 1;
+                }
             }
         }
         finally{
