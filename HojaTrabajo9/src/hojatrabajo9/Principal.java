@@ -21,7 +21,7 @@ public class Principal {
      * @throws IOException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        BufferedReader br = new BufferedReader(new FileReader("diccionario.txt"));    
+        BufferedReader br = new BufferedReader(new FileReader("freedict-eng-spa.txt.DIC"));    
         StringBuilder sb = new StringBuilder();
         String line;
         arbol imp = null; //implementacionq que escogera el Factory
@@ -60,10 +60,18 @@ public class Principal {
                         for(int i=1;i<line.length();i++){
 
                             String iter = line.substring((i-1), i); 
-                            if(iter.equals(","))
+                            if(iter.equals("\t"))
                             {
-                                palabraEspanol = line.substring(i, line.length()-1).toUpperCase(); //se obtiene la subcadena luego de ","
-                                palabraIngles = line.substring(0, i-1).toUpperCase(); //se obtiene la subcadena antes de "," 
+                                
+                                if(line.contains(",")){
+                                    palabraEspanol = line.substring(i, line.indexOf(",")).toLowerCase();
+                                }else if(line.contains(";")){
+                                    palabraEspanol = line.substring(i, line.indexOf(";")).toLowerCase();
+                                }else{
+                                    palabraEspanol = line.substring(i, line.length()-1).toLowerCase(); //se obtiene la subcadena luego de ","
+                                }
+                                
+                                palabraIngles = line.substring(0, i-1).toLowerCase(); //se obtiene la subcadena antes de "," 
                                 imp.put(palabraIngles, palabraEspanol);
                             }
                         }
@@ -93,11 +101,11 @@ public class Principal {
                     String word;
 
                     for(String p: palabras){
-                        word = p.toUpperCase();
+                        word = p.toLowerCase();
                         if (imp.contains(word))
-                            resultado += imp.get(word) + " ";
+                            resultado += imp.get(word).toUpperCase() + " ";
                         else
-                            resultado+= word + " ";
+                            resultado+= word.toUpperCase() + " ";
                         }
                     System.out.println("----------------------------------");
                     System.out.println("Traduccion del documento.");
