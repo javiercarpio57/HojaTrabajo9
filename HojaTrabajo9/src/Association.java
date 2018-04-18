@@ -1,9 +1,9 @@
-package hojatrabajo9;
 
 
 import java.util.Map;
 /**
- * 
+ * @author Javier Carpio
+ * @author Ana Lucia Hernandez 
  * @version $Id: Association.java 34 2007-08-09 14:43:44Z bailey $
  * @author, 2001 duane a. bailey
  * @param <K>

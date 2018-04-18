@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package hojatrabajo9;
+
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -11,8 +6,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author javie
+ * @author Javier Carpio
+ * @author Ana Lucia Hernandez 
  */
 public class RedBlackTreeTest {
     
@@ -38,7 +33,10 @@ public class RedBlackTreeTest {
         int result = instance.size();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (result != expResult)
+        {
+            fail("La prueba size ha fallado.");
+        }
     }
 
     /**
@@ -48,11 +46,13 @@ public class RedBlackTreeTest {
     public void testIsEmpty() {
         System.out.println("isEmpty");
         RedBlackTree instance = new RedBlackTree();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (result != expResult)
+        {
+            fail("La prueba isEmpty ha fallado.");
+        }
     }
 
     /**
@@ -61,13 +61,16 @@ public class RedBlackTreeTest {
     @Test
     public void testGet() {
         System.out.println("get");
-        String key = "";
+        String key = "dog";
         RedBlackTree instance = new RedBlackTree();
-        String expResult = "";
+        instance.put("dog", "perro");
+        String expResult = "perro";
         String result = instance.get(key);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (!result.equals(expResult))
+        {
+            fail("La prueba get ha fallado.");
+        }
     }
 
     /**
@@ -81,8 +84,10 @@ public class RedBlackTreeTest {
         boolean expResult = false;
         boolean result = instance.contains(key);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (result != expResult)
+        {
+            fail("La prueba contains ha fallado.");
+        }
     }
 
     /**
@@ -91,12 +96,18 @@ public class RedBlackTreeTest {
     @Test
     public void testPut() {
         System.out.println("put");
-        String key = "";
-        String val = "";
         RedBlackTree instance = new RedBlackTree();
+        String key = "cat";
+        String val = "gato";
+        instance.put(key,val);
+        String expResult = "gato";
+        String result = instance.get(key);
+        assertEquals(expResult, result);
         instance.put(key, val);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (!result.equals(expResult))
+        {
+            fail("La prueba contains ha fallado.");
+        }
     }
     
 }

@@ -1,5 +1,5 @@
 
-package hojatrabajo9;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +21,7 @@ public class Principal {
      * @throws IOException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        BufferedReader br = new BufferedReader(new FileReader("freedict-eng-spa.txt.DIC"));    
+        BufferedReader br = new BufferedReader(new FileReader("newdictionary.txt"));    
         StringBuilder sb = new StringBuilder();
         String line;
         arbol imp = null; //implementacionq que escogera el Factory
@@ -105,10 +105,10 @@ public class Principal {
                         if (imp.contains(word))
                             resultado += imp.get(word).toUpperCase() + " ";
                         else
-                            resultado+= word.toUpperCase() + " ";
+                            resultado+= " **"+word.toUpperCase() + "** ";
                         }
                     System.out.println("----------------------------------");
-                    System.out.println("Traduccion del documento.");
+                    System.out.println("Traduccion del documento:");
                     System.out.println(resultado);
                     System.out.println("----------------------------------");
                     ciclo = 1;

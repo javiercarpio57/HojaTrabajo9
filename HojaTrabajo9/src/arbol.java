@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package hojatrabajo9;
 
 /**
- *
- * @author anahernandez
+ * @author Javier Carpio
+ * @author Ana Lucia Hernandez 
  */
 public interface arbol<E> {
     
@@ -21,7 +15,6 @@ public interface arbol<E> {
     
     /**
      * post: returns the value associated with the key provided
-     * @return el tamaño de la lista
      * @param key
      * @return valor asociado con el key
      */

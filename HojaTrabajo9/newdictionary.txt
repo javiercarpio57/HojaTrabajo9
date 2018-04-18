@@ -1439,7 +1439,7 @@ busstop	paradadelautobús
 busy	ocupado
 busy	estar...ando
 bus	paradadelautobús; paradadelautobús
-but	excepto, menos; mas, pero
+but	pero, menos; mas, excepto
 butcher	matar; carnicero
 butcher	carnicería; carnicería
 butter	mantequilla

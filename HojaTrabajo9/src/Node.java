@@ -1,5 +1,4 @@
 
-package hojatrabajo9;
 /**
  * @author Ana Lucia Hernandez
  * @author Javier Carpio
@@ -27,10 +26,10 @@ public class Node<E> {
     
     /**
      * Constructor que crea la raiz. Se usa para el Red-Black Tree
-     * @param ingles
-     * @param espanol
-     * @param color
-     * @param size 
+     * @param ingles Palabra en ingles
+     * @param espanol Palabra en espanol
+     * @param color color de nuevo nodo
+     * @param size tamaño del subtree del nodo
      */
     public Node(String ingles, String espanol, boolean color, int size)
     {

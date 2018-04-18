@@ -1,10 +1,9 @@
 
-package hojatrabajo9;
 
 /**
  * Clase que demuestra la utilizacion del patron de diseño factory.
  * @author Javier Carpio
- * @author Ana Lucia Hernandez 17138
+ * @author Ana Lucia Hernandez 
  */
 class Factory<E> {
     arbol implementacion;
@@ -14,8 +13,7 @@ class Factory<E> {
     public Factory(){}
     /**
      * Selecciona la implementacion a utilizar para un stack o una lista.
-     * @param entryStack el stack que se quiere usar (vector, arraylist)
-     * @param entryLista la lista que se quiere usar (simply, doubly o circular)
+     * @param entry el tipo de árbol que se desea usar
      * @return la instanciacion correspondiente
      */
    public arbol getTree(String entry) {

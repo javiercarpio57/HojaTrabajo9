@@ -1,8 +1,8 @@
-package hojatrabajo9;
 
 /**
- *
- * @author javie
+ * @author Javier Carpio
+ * @author Ana Lucia Hernandez 
+ * El código de esta clase se obtuvo de: https://algs4.cs.princeton.edu/33balanced/RedBlackBST.java.html
  */
 public class RedBlackTree<E> implements arbol{
     
@@ -17,6 +17,11 @@ public class RedBlackTree<E> implements arbol{
     *  Node helper methods.
     ***************************************************************************/
     // is node x red; false if x is null ?
+    /**
+     * 
+     * @param x: nodo a verificar color
+     * @return  true si es rojo, false si es negro
+     */
     private boolean isRed(Node x) {
         if (x == null) 
             return false;
@@ -62,7 +67,12 @@ public class RedBlackTree<E> implements arbol{
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         return get(root, key);
     }
-    // value associated with the given key in subtree rooted at x; null if no such key
+    /**
+     * 
+     * @param x: nodo a revisar si tiene dicha llave
+     * @param key: llave a buscar
+     * @return 
+     */
     private String get(Node x, String key) {
         while (x != null) {
             int cmp = key.compareTo(x.getKey());
@@ -140,7 +150,11 @@ public class RedBlackTree<E> implements arbol{
     *  Red-black tree helper functions.
     ***************************************************************************/
 
-    // make a left-leaning link lean to the right
+    /**
+     * Make a left-leaning link lean to the right
+     * @param h nodo a revisar color
+     * @return nodo
+     */
     private Node rotateRight(Node h) {
         // assert (h != null) && isRed(h.left);
         Node x = h.getLeft();
@@ -153,7 +167,11 @@ public class RedBlackTree<E> implements arbol{
         return x;
     }
 
-    // make a right-leaning link lean to the left
+    /**
+     * Make a right-leaning link lean to the left
+     * @param h nodo a revisar color
+     * @return nodo
+     */
     private Node rotateLeft(Node h) {
         // assert (h != null) && isRed(h.right);
         Node x = h.getRight();
@@ -166,7 +184,10 @@ public class RedBlackTree<E> implements arbol{
         return x;
     }
 
-    // flip the colors of a node and its two children
+    /**
+     * flip the colors of a node and its two children
+     * @param h: assessed node
+     */
     private void flipColors(Node h) {
         // h must have opposite color of its two children
         // assert (h != null) && (h.left != null) && (h.right != null);
@@ -177,8 +198,11 @@ public class RedBlackTree<E> implements arbol{
         h.getRight().color = !h.getRight().color;
     }
 
-    // Assuming that h is red and both h.left and h.left.left
-    // are black, make h.left or one of its children red.
+    /**
+     *  Assuming that h is red and both h.left and h.left.left are black, make h.left or one of its children red.
+     * @param h: nodo a revisar
+     * @return nodo resultante
+     */
     private Node moveRedLeft(Node h) {
         // assert (h != null);
         // assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
@@ -194,6 +218,11 @@ public class RedBlackTree<E> implements arbol{
 
     // Assuming that h is red and both h.right and h.right.left
     // are black, make h.right or one of its children red.
+   /**
+    * 
+    * @param h: nodo a revisar
+     * @return nodo resultante
+    */
     private Node moveRedRight(Node h) {
         // assert (h != null);
         // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
@@ -205,7 +234,11 @@ public class RedBlackTree<E> implements arbol{
         return h;
     }
 
-    // restore red-black tree invariant
+    /**
+     * restore red-black tree invariant
+     * @param h: nodo a revisar
+     * @return nodo resultante
+     */
     private Node balance(Node h) {
         // assert (h != null);
 
