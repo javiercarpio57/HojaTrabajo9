@@ -105,7 +105,7 @@ public class Principal {
                         if (imp.contains(word))
                             resultado += imp.get(word).toUpperCase() + " ";
                         else
-                            resultado+= " **"+word.toUpperCase() + "** ";
+                            resultado+= " *"+word.toUpperCase() + "* ";
                         }
                     System.out.println("----------------------------------");
                     System.out.println("Traduccion del documento:");
